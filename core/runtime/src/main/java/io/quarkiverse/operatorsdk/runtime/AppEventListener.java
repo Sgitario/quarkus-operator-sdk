@@ -28,7 +28,9 @@ public class AppEventListener {
             log.info("Quarkus Java Operator SDK extension {} (commit: {}{}) built on {}", version.getExtensionVersion(),
                     version.getExtensionCommit(), branch, version.getExtensionBuildTime());
         }
-        operator.start();
+        if (configurationService.shouldStartOperator()) {
+            operator.start();
+        }
     }
 
     public void onShutdown(@Observes ShutdownEvent event) {
